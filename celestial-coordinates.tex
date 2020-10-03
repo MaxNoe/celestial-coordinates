@@ -1,0 +1,143 @@
+% vim: set spell
+% vim: spelllang=en
+\PassOptionsToPackage{unicode}{hyperref}
+\documentclass[aspectratio=1610, 9pt]{beamer}
+
+\usetheme{vertex}
+
+
+\setmathfont{XITS Math}[range={cal, bfcal}]
+
+\usepackage[main=german, english]{babel}
+\usepackage[autostyle]{csquotes}
+
+\usepackage{xcolor}
+
+\usepackage{tcolorbox}
+\usepackage[]{siunitx}
+\setmathfont{Fira Math}
+\AtBeginDocument{\sisetup{math-rm=\mathrm,math-micro=μ}}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{calc}
+
+% \usepackage{biblatex}
+
+\usepackage{hyperref}
+\usepackage{bookmark}
+
+\usepackage{xparse}
+\usepackage{expl3}
+
+\RenewDocumentCommand \d {m} {\TextOrMath{\textd{#1}}{\mathinner{\symup{d}#1}}}
+
+
+\title{Celestial Coordinates}%
+
+\author[M. Nöthe]{Maximilian Nöthe}
+\date[2020-10-09]{Group Seminar 2020-10-09}
+\institute[E5b]{\includegraphics[height=0.1\textheight]{logos/e5b.pdf}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}[c]{Overview}
+ \tableofcontents
+\end{frame}
+
+\begin{frame}{Where do I need to point my telescope}
+\end{frame}
+
+\section{Time}
+\begin{frame}{The Two Concepts of Time}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.475\textwidth}
+      \begin{center}
+        \textbf{\Large Earth's Orientation}\\[0.5\baselineskip]%
+        \only<1>{%
+          \includegraphics[height=3.5cm]{images/AxialTiltObliquity.png}\\[-1.2\baselineskip]
+          \hspace{2.5cm}{\small[Dna-Dennis]}
+        }%
+        \only<2->{%
+          \includegraphics[height=3.5cm]{images/vlba.jpeg}\\[-1.2\baselineskip]
+          \hspace{-3.5cm}{\small[NASA]}
+        }%
+      \end{center}
+
+      \begin{itemize}
+        \item The historical concept
+        \item Base of calendars $⇒ $ leap years
+        \item Universal Time 1 (UT1)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.525\textwidth}
+      \onslide<3->{
+        \begin{center}
+          \textbf{\Large Linear Time}\\[0.5\baselineskip]%
+          \includegraphics[height=3.5cm]{images/Atomuhr-CS2.jpg}\\[-1.2\baselineskip]
+          \hspace{3.5cm}{\color{black!20}\small[Jörg Behrens]}
+        \end{center}
+
+        \begin{itemize}
+          \item Monotonically ticking SI seconds
+          \item Temps Atomique International (TAI)
+        \end{itemize}
+      }
+    \end{column}
+  \end{columns}
+  \medskip
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.475\textwidth}
+      \onslide<2->{%
+        \begin{center}
+          \large\bfseries
+          Measured daily by radio telescopes\\ (e.\,g.\ by the VLBA)
+        \end{center}
+      }
+    \end{column}
+    \hfill
+    \begin{column}{0.525\textwidth}
+      \onslide<4->{%
+        \begin{center}
+          \large\bfseries
+          Measured by >600 atomic clocks in 60 institutes\\
+          (e.\,g.\ PTB Braunschweig)
+        \end{center}
+      }
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Time Standards}
+\end{frame}
+
+\section{Terrestrial Coordinates and the Rotation of Earth}
+\begin{frame}{title}
+\end{frame}
+
+\section{Precession / Nutation / Polar Motion}
+\begin{frame}{title}
+\end{frame}
+
+\section{The Fundamental Celestial Reference System}
+\begin{frame}{title}
+\end{frame}
+
+\section{Equatorial Coordinates}
+\begin{frame}{title}
+\end{frame}
+
+\section{Horizontal Coordinates}
+\begin{frame}{title}
+\end{frame}
+
+\section{Galactic Coordinates}
+\begin{frame}{title}
+\end{frame}
+
+\section{Using \texttt{astropy} for Coordinate Transformation}
+\bumper{Never do live demo}
+
+\end{document}
