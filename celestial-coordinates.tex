@@ -30,6 +30,11 @@
 \usepackage{xparse}
 \usepackage{expl3}
 
+\NewDocumentCommand \TT {} {\ensuremath{\operatorname{TT}}}
+\NewDocumentCommand \TAI {} {\ensuremath{\operatorname{TAI}}}
+\NewDocumentCommand \UT {} {\ensuremath{\operatorname{UT1}}}
+\NewDocumentCommand \UTC {} {\ensuremath{\operatorname{UTC}}}
+
 \RenewDocumentCommand \d {m} {\TextOrMath{\textd{#1}}{\mathinner{\symup{d}#1}}}
 
 
@@ -69,7 +74,6 @@
       \begin{itemize}
         \item The historical concept
         \item Base of calendars $⇒ $ leap years
-        \item Universal Time 1 (UT1)
       \end{itemize}
     \end{column}
     \begin{column}{0.525\textwidth}
@@ -81,8 +85,8 @@
         \end{center}
 
         \begin{itemize}
+          \item Based on clocks
           \item Monotonically ticking SI seconds
-          \item Temps Atomique International (TAI)
         \end{itemize}
       }
     \end{column}
@@ -102,8 +106,7 @@
       \onslide<4->{%
         \begin{center}
           \large\bfseries
-          Measured by >600 atomic clocks in 60 institutes\\
-          (e.\,g.\ PTB Braunschweig)
+          Measured by atomic clocks\\
         \end{center}
       }
     \end{column}
@@ -111,6 +114,68 @@
 \end{frame}
 
 \begin{frame}{Time Standards}
+  \framesubtitle{UT1, ERA, TAI, TT}
+  \begin{columns}[t, onlytextwidth]
+    \begin{column}{0.495\textwidth}
+      \begin{center}
+        \textbf{\Large Earth's Orientation}\\[0.5\baselineskip]%
+
+        \begin{description}[ERA $(\theta)$]
+          \item[UT1] Universal Time 1
+            \begin{itemize}
+              \item Measured daily by VLBI
+              \item Units have variable length, since $\SI{1}{\day} = \SI{24}{\hour} = \SI{1440}{\minute} = \SI{86400}{\second}$
+              \item Can only be known in hindsight
+              \item Published as $\increment(\operatorname{UT1}, \operatorname{UTC})$ tables
+            \end{itemize}
+          \item[ERA ($\theta$)] Earth Orientation Angle \\
+            UT1 expressed as angle
+        \end{description}
+      \end{center}
+    \end{column}
+    \begin{column}{0.495\textwidth}
+      \begin{center}
+        \textbf{\Large Linear Time}\\[0.5\baselineskip]%
+        \begin{description}[TAI]
+          \item[TAI] Temps Atomique International
+            \begin{itemize}
+              \item Maintained by the BIPM
+              \item Uses $>600$ atomic clocks in 60 institutes
+              \item Preliminary \TAI{} time broadcast
+              \item Final \TAI{} published monthly
+              \item SI seconds on Earth's Geoid\\ → relativistic corrections
+            \end{itemize}
+          \item[TT] Terrestrial Time
+            \begin{itemize}
+              \item Idealised timescale for time on Earth's Geoid
+              \item Realized as $\TT(\TAI) = \TAI{} + \SI{32.184}{\second}$
+            \end{itemize}
+        \end{description}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Time Standards}
+  \framesubtitle{UTC}
+  \begin{columns}[t, onlytextwidth]
+    \hfill
+    \begin{column}{0.5\textwidth}
+      \centering
+      \textbf{\Large Bit of Both}\\[0.5\baselineskip]%
+      \begin{description}[UTC]
+        \item[UTC] Coordinated Universal Time
+        \begin{itemize}
+          \item Civil Timekeeping
+          \item Based on \TAI
+          \item Difference to \UT{} kept $<\SI{1}{\second}$ by leapseconds \\
+            \texttt{2020-12-31T23:59:60}
+          \item Currently: $\UTC = \TAI - \SI{37}{\second}$
+        \end{itemize}
+      \end{description}
+    \end{column}
+    \hfill
+  \end{columns}
 \end{frame}
 
 \section{Terrestrial Coordinates and the Rotation of Earth}
