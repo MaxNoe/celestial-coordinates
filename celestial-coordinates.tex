@@ -37,6 +37,11 @@
 
 \RenewDocumentCommand \d {m} {\TextOrMath{\textd{#1}}{\mathinner{\symup{d}#1}}}
 
+\NewDocumentCommand \heading {m} {{%
+  \textcolor{vertexDarkRed}{\bfseries\large #1}
+  \par\medskip%
+}}
+
 
 \title{Celestial Coordinates}%
 
@@ -56,11 +61,13 @@
 \end{frame}
 
 \section{Time}
+\bumper{Time}
+
 \begin{frame}{The Two Concepts of Time}
   \begin{columns}[t, onlytextwidth]
     \begin{column}{0.475\textwidth}
       \begin{center}
-        \textbf{\Large Earth's Orientation}\\[0.5\baselineskip]%
+        \heading{Earth's Orientation}
         \only<1>{%
           \includegraphics[height=3.5cm]{images/AxialTiltObliquity.png}\\[-1.2\baselineskip]
           \hspace{2.5cm}{\small[Dna-Dennis]}
@@ -79,7 +86,7 @@
     \begin{column}{0.525\textwidth}
       \onslide<3->{
         \begin{center}
-          \textbf{\Large Linear Time}\\[0.5\baselineskip]%
+          \heading{Linear Time}
           \includegraphics[height=3.5cm]{images/Atomuhr-CS2.jpg}\\[-1.2\baselineskip]
           \hspace{3.5cm}{\color{black!20}\small[Jörg Behrens]}
         \end{center}
@@ -118,7 +125,7 @@
   \begin{columns}[t, onlytextwidth]
     \begin{column}{0.495\textwidth}
       \begin{center}
-        \textbf{\Large Earth's Orientation}\\[0.5\baselineskip]%
+        \heading{Earth's Orientation}
 
         \begin{description}[ERA $(\theta)$]
           \item[UT1] Universal Time 1
@@ -135,7 +142,7 @@
     \end{column}
     \begin{column}{0.495\textwidth}
       \begin{center}
-        \textbf{\Large Linear Time}\\[0.5\baselineskip]%
+      \heading{Linear Time}
         \begin{description}[TAI]
           \item[TAI] Temps Atomique International
             \begin{itemize}
@@ -156,10 +163,9 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Time Standards}
+\begin{frame}[c]{Time Standards}
   \framesubtitle{UTC}
-  \begin{columns}[t, onlytextwidth]
-    \hfill
+  \begin{columns}[c, onlytextwidth]
     \begin{column}{0.5\textwidth}
       \centering
       \textbf{\Large Bit of Both}\\[0.5\baselineskip]%
@@ -175,14 +181,58 @@
       \end{description}
     \end{column}
     \hfill
+    \begin{column}{0.5\textwidth}
+      \includegraphics[height=0.9\textheight]{images/dcf77.jpg}\\[-1.2\baselineskip]
+      \hspace{2em}[PTB (Erika Schow)]
+    \end{column}
   \end{columns}
 \end{frame}
 
-\section{Terrestrial Coordinates and the Rotation of Earth}
-\begin{frame}{title}
+\section{Terrestrial Coordinates}
+\bumper{Terrestrial Coordinates}
+
+\begin{frame}{International Terrestrial References System and Frames}
+
+  The ITRS is defined by axis fixed on the Earth's crust with no net rotation
+  through continental drift
+
+  \begin{description}[$(0,0,0)$]
+    \item[$\color{vertexDarkRed} z$-Axis] Earth's rotation axis
+    \item[$\color{vertexDarkRed} x$-Axis] in the equatorial plane through the 0 meridian
+    \item[$\color{vertexDarkRed} y$-Axis] perpendicular to $x$ and $z$ form a right handed system
+    \item[$\color{vertexDarkRed} (0, 0, 0)$] Earth's barycenter
+  \end{description}
+
+  We mostly use spherical coordinates: latitude, longitude and height above
+  the reference geoid.
+
+  \bigskip
+
+  A reference frame is an implementation of a reference system based on ground stations:
+
+  \begin{itemize}
+    \item GPS (Global Positioning System) / Galileo ground stations
+    \item VLBI telescopes
+    \item Satellite laser ranging
+    \item DORIS (Doppler Orbitography and Radiopositioning Integrated by Satellite)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{ITRF / WGS84}
+  \centering
+  \includegraphics[
+    width=\textwidth,
+    height=0.9\textheight,
+    keepaspectratio
+  ]{images/itrf_groundstations.jpg}\\[-3\baselineskip]
+  \textcolor{white}{[NASA/Earth Observatory/GSFC]}\\[2\baselineskip]
+
+  Two main reference frames today: WGS84 and ITRF. Difference only centimeters.
 \end{frame}
 
 \section{Precession / Nutation / Polar Motion}
+\bumper{Precession / Nutation / Polar Motion}
+
 \begin{frame}{title}
 \end{frame}
 
