@@ -1,7 +1,13 @@
 all: build/celestial-coordinates.pdf
 
+plots: build/polar_motion.pdf
 
-build/celestial-coordinates.pdf: FORCE
+build/polar_motion.pdf: plots/plot_polar_motion.py
+	python $<
+	pdfcrop $@ $@
+
+
+build/celestial-coordinates.pdf: plots FORCE
 	TEXINPUTS=beamertheme-vertex:.:../thesis: \
 	latexmk \
 		--lualatex \
@@ -13,7 +19,7 @@ build/celestial-coordinates.pdf: FORCE
 		celestial-coordinates.tex
 
 
-preview: FORCE
+preview: plots FORCE
 	TEXINPUTS=beamertheme-vertex:.:../thesis: \
 	latexmk \
 		--lualatex \

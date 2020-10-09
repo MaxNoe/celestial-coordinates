@@ -5,11 +5,15 @@
 
 \usetheme{vertex}
 
+\unimathsetup{math-style=ISO, bold-style=ISO, nabla=upright, partial=upright}
+
 
 \setmathfont{XITS Math}[range={cal, bfcal}]
 
 \usepackage[main=german, english]{babel}
 \usepackage[autostyle]{csquotes}
+
+\usepackage{mathtools}
 
 \usepackage{xcolor}
 
@@ -42,6 +46,10 @@
   \par\medskip%
 }}
 
+\DeclareSIUnit\arcsecond{as}
+
+\usepackage{tikz-3dplot}
+
 
 \title{Celestial Coordinates}%
 
@@ -53,11 +61,89 @@
 
 \maketitle
 
+\bumper{Where do I need to point my telescope to observe source X?}
+
 \begin{frame}[c]{Overview}
  \tableofcontents
 \end{frame}
 
-\begin{frame}{Where do I need to point my telescope}
+
+\bumper{Equatorial Coordinates / ICRS}
+\section{Equatorial Coordinates / ICRS}
+\begin{frame}[t]{Equatorial Coordinates}
+  \centering
+  \tdplotsetmaincoords{70}{20}
+  \begin{tikzpicture}[tdplot_main_coords, scale=1.5]
+    \coordinate (vernal) at (0, -4, 0);
+    \coordinate (origin) at (0, 0, 0);
+    \node[anchor=center, rotate=-22] at (0, 0, 0) {\includegraphics[height=2cm]{images/globe.png}};
+
+    \tdplotdrawarc[thick, color=vertexDarkGrey]{(0, 0, 0)}{4}{0}{360}{}{};
+
+    \tdplotsetrotatedcoords{0}{22}{0}
+    \tdplotdrawarc[thick, color=vertexDarkRed, tdplot_rotated_coords]{(0, 0, 0)}{4}{0}{360}{}{};
+
+    % coordinates
+    \tdplotdrawarc[thick, color=blue!80!black, tdplot_rotated_coords, ->]{(0, 0, 0)}{4}{-90}{-70}{below, rotate=-22}{\hspace{2em}right ascension};
+    \tdplotsetrotatedcoords{0}{22}{0}
+    \tdplotsetrotatedthetaplanecoords{90}
+    \tdplotdrawarc[thick, color=blue!80!black, tdplot_rotated_coords, ->]{(0, 0, 0)}{4}{-90}{-70}{rotate=68, above}{declination};
+
+    \tdplotsetrotatedcoords{0}{22}{0}
+    \node[above right, tdplot_rotated_coords, vertexDarkRed] at (4, 0, 0) {\hspace{2em}Equator};
+
+    \node[above right] at (0, -4, 0) {\hspace{2em}Vernal Equinox};
+    \node[above right] at (0, 4, 0) {Autumnal Equinox};
+    \node[below right] at (4, 0, 0) {Ecliptic};
+
+    \tdplotsetrotatedcoordsorigin{(vernal)}
+    \tdplotsetrotatedcoords{0}{22}{0}
+    \tdplotsetrotatedthetaplanecoords{0}
+    \tdplotdrawarc[thick, color=vertexDarkRed, tdplot_rotated_coords]{(0, 0, 0)}{1}{65}{87}{right}{obliquity$\color{vertexDarkRed}{} \approx \ang{23}$};
+
+    \tdplotsetrotatedcoords{0}{22}{0}
+    \tdplotsetrotatedcoordsorigin{(origin)}
+    \draw[vertexDarkRed, tdplot_rotated_coords, thick,->] (0,-0.5,0) -- (0,-4.5,0) node[anchor=north west]{$x$};
+    \draw[vertexDarkRed, tdplot_rotated_coords, thick,->] (0.5,0,0) -- (4.5,0,0) node[anchor=north east]{$y$};
+    \draw[vertexDarkRed, tdplot_rotated_coords, thick,->] (0,0,0.55) -- (0,0,2.5) node[anchor=north west]{$z$};
+    % \node[vertexDarkRed, tdplot_rotated_coords, above] at (0, 0, 2.5) {Earth Rotation Axis};
+
+  \end{tikzpicture}
+
+  \raggedright
+\end{frame}
+
+\begin{frame}[c]{International Celestial Reference System / Frame}
+
+  \begin{description}
+    \item[Historically] Equatorial coordinates need a reference time for the equinox position
+    \item[Modern] The International Celestial Reference Systems defined by VLBI radio sources
+  \end{description}
+
+  \begin{itemize}
+    \item Origin at Solarsystem Barycenter
+    \item Space-fixed, non-rotating
+    \item Implemented by reference Frames, catalogues of reference sources with reference coordinates
+    \item For backwards compatibility: very close to J2000 equatorial coordinates (\SI{0.02}{\arcsecond})
+  \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[c]{Full Transformation Equation}
+  \Huge
+  \begin{equation*}
+    \symbf{x}_\text{sky} = \symbf{P} \cdot \symbf{N} \cdot \symbf{T} \cdot \symbf{W} \cdot \symbf{x}_\text{earth}
+  \end{equation*}
+
+  \large
+  \begin{description}
+    \item[$\symbf{P}$] Precession
+    \item[$\symbf{N}$] Nutation
+    \item[$\symbf{T}$] Earth's rotation
+    \item[$\symbf{W}$] Polar Motion
+  \end{description}
 \end{frame}
 
 \section{Time}
@@ -233,23 +319,112 @@
 \section{Precession / Nutation / Polar Motion}
 \bumper{Precession / Nutation / Polar Motion}
 
-\begin{frame}{title}
+\begin{frame}{Earth's unstable axis of rotation}
+  \begin{columns}[c, onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item All solar system bodies apply a force onto Earth's rotation axis
+        \item Division into two components
+      \end{itemize}
+
+      \bigskip
+
+      \heading{Precession}
+      \begin{itemize}
+        \item Smooth, circular motion of the axis
+        \item Period ca.\ ~26\,000 years
+      \end{itemize}
+
+      \bigskip
+      \heading{Nutation}
+      \begin{itemize}
+        \item All other periodic components
+        \item Current model: 678 terms for sun and moon, 687 terms for the planets
+          $⇒$ \SI{0.3}{\micro\arcsecond} precision
+      \end{itemize}
+
+      \bigskip
+      Precisions discarding Nutation:
+
+      \medskip
+      Without nutation: $\approx\ang{;;30}$ precision \\
+      3rd order approximation: $\approx\ang{;;1}$ precision
+    \end{column}
+    \hfill
+    \begin{column}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{images/earth_precession.pdf}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\section{The Fundamental Celestial Reference System}
-\begin{frame}{title}
+\begin{frame}[c]{Polar Motion}
+  \begin{columns}[c, onlytextwidth]
+    \begin{column}{0.35\textwidth}
+      \begin{itemize}
+        \item Earth's rotation axis also not stable with respect to the crust
+      \end{itemize}
+    \end{column}
+    \hfill
+    \begin{column}{0.6\textwidth}
+      \includegraphics[width=\textwidth]{build/polar_motion.pdf}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\section{Equatorial Coordinates}
-\begin{frame}{title}
+\begin{frame}[c]{Frame summary}
+  \Huge
+  \begin{equation*}
+    \symbf{x}_\text{earth} = \underbrace{
+      \symbf{W}^{-1} \cdot \symbf{T}^{-1} \cdot \underbrace{
+        \symbf{N}^{-1} \cdot \symbf{P}^{-1} \cdot \underbrace{
+          \symbf{x}_\text{sky}
+        }_\text{ICRS}}_{\mathclap{\text{CIRS}}}}_\text{ITRF}
+  \end{equation*}
+
+  \large
+  \begin{description}
+    \item[$\symbf{P}$] Precession
+    \item[$\symbf{N}$] Nutation
+    \item[$\symbf{T}$] Earth's rotation
+    \item[$\symbf{W}$] Polar Motion
+  \end{description}
 \end{frame}
 
 \section{Horizontal Coordinates}
-\begin{frame}{title}
+
+\begin{frame}{Horizontal Coordinates}
+
+
+  \begin{columns}[c, onlytextwidth]
+    \begin{column}{0.35\textwidth}
+      \includegraphics[width=\textwidth]{images/trails.jpg}
+    \end{column}
+    \hfill
+    \begin{column}{0.6\textwidth}
+      From the ITRF, we then got to a local coordinate system.
+
+      \begin{itemize}
+        \item Coordinate system for the local observer
+        \item Several definitions exist
+        \item astropy:
+          \begin{description}
+            \item[Altitude] Angle above the horizontal plane
+            \item[Azimuth] Angle in the plane, N = \ang{0}, E = \ang{90}
+            \item[Zenith] $\ang{90} - \text{Altitude}$
+          \end{description}
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\section{Galactic Coordinates}
-\begin{frame}{title}
+\begin{frame}{Things not mentioned today}
+  \begin{itemize}
+    \item Galactic coordinates (simple rotation from ICRS)
+    \item Solar system bodies
+    \item Refractive corrections
+    \item All the old definitions still in use at many places \\
+      (GMST, J2000 coordinates, Equation of the equinox, ...)
+  \end{itemize}
 \end{frame}
 
 \section{Using \texttt{astropy} for Coordinate Transformation}
